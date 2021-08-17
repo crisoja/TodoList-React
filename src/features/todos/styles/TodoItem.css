@@ -1,0 +1,37 @@
+.TodoItem-todo.done{
+    color: rgb(46, 82, 47);
+    text-decoration: line-through;
+}
+
+ul {
+    margin: 10;
+    padding: 0;
+
+    
+  }
+
+ul li {
+    cursor: pointer;
+    position: relative;
+    padding: 12px 8px 12px 40px;
+    list-style-type: none;
+    background: rgb(66, 170, 156);
+    font-size: 18px;
+    transition: 0.2s;
+  }
+  
+ul li:hover {
+    background: rgb(194, 142, 142);
+}
+
+span.todoRemove {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 12px 16px 12px 16px;
+}
+
+span.todoRemove:hover {
+    background-color: #4e62d8;
+    color: white;
+}
