@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { AddTodo } from '../reducers/todosSlice';
-import "../styles/TodoForm.css"
+import { createTodo } from "../apis/todos";
+import "../styles/TodoForm.css";
+import { Button,Input } from 'antd';
+
 
 function TodoForm() {
 
@@ -14,29 +17,32 @@ function TodoForm() {
     }
 
     function handleInputTextAdd(){
-        if(inputText === ''){
-            alert("Don't leave your to do empty before adding!");
-        }
-        else{
-            dispatch(AddTodo(inputText));
+        if(inputText !== "") {
+            createTodo(inputText).then((response) => {
+                dispatch(AddTodo(response.data));
+            });
             setText("");
-        }
-
-    }
+         }     
+     }
 
     return (
         <div className = "TodoForm">
-            <input class = "inputText"
+        <Input className="Input" 
+        placeholder="Put your todo here" 
+        onChange={handleInputTextChange} value={inputText}></Input>
+  
+            <Button className="AddButton" type="primary" shape="circle" onClick={handleInputTextAdd}>Add</Button>
+            {/* <input class = "inputText"
                 type = "text"
                 placeholder = "Put your todo here"
                 value = {inputText}
                 onChange = {handleInputTextChange}
-            ></input>
-            <button class = "addButton"
+            ></input> */}
+            {/* <button class = "addButton"
                 onClick = {handleInputTextAdd}
-            >Add</button>
+            >Add</button> */}
         </div>
     )
 }
 
-export default TodoForm
+export default TodoForm;

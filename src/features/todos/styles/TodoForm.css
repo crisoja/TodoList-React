@@ -1,4 +1,30 @@
-.TodoForm{
+.Input {
+    font-family: Helvetica;
+    font-size: 20px;
+    max-width: 50%;
+    font-weight: 10px;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .TodoForm{
     height: 50px;
     width: 50%;
     border-radius: 12px;
@@ -33,4 +59,4 @@ button{
     width:  50px;
 }
 
-
+ */

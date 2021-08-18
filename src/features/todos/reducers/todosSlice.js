@@ -1,5 +1,4 @@
-import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
-import { v4 as uuid } from "uuid";
+import { createSlice, createEntityAdapter, createSelector } from "@reduxjs/toolkit";
 
 
 const todosAdapter = createEntityAdapter();
@@ -17,27 +16,35 @@ const initialState = todosAdapter.getInitialState({
 
 const todosSlice = createSlice({
     name: "todos",
-    initialState,
+    initialState: initialState,
     reducers: {
         AddTodo(state, action){
-            todosAdapter.addOne(state, {
-                id: uuid(),
-                text: action.payload,
-                done: false,
-            });
+            todosAdapter.addOne(state, action.payload)
+            return state;
         },
         ToggleTodo(state, action){
-            const todo = state.entities[action.payload]
-            todo.done = !todo.done;
+            todosAdapter.updateOne(state, {
+                id: action.payload.id,
+                changes: action.payload.updateTodo
+            })
         },
         ToggleTodoRemove(state, action){
-            todosAdapter.removeOne(state, action.payload);
+            todosAdapter.removeOne(state, action.payload)
         },
+        addTodos(state, action) {
+            todosAdapter.addMany(state, action.payload);
+        }
     },
 });
 
 export default todosSlice.reducer;
 
-export const { selectIds: selectTodoIds, selectById: selectTodoById } = todosAdapter.getSelectors((state) => state.todoList);
+export const {selectIds: selectTodoIds,
+    selectById: selectTodoById,
+    selectAll: selectTodos} = todosAdapter.getSelectors((state) => state.todoList);
 
-export const { AddTodo, ToggleTodo, ToggleTodoRemove } = todosSlice.actions;
+export const selectDoneList = createSelector([selectTodos], (todos) => todos.filter((todo) => todo.done));
+
+//export const { selectIds: selectTodoIds, selectById: selectTodoById } = todosAdapter.getSelectors((state) => state.todoList);
+
+export const { AddTodo, ToggleTodo, ToggleTodoRemove, addTodos } = todosSlice.actions;
