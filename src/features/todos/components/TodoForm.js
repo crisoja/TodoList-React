@@ -32,6 +32,7 @@ function TodoForm() {
         onChange={handleInputTextChange} value={inputText}></Input>
   
             <Button className="AddButton" type="primary" shape="circle" onClick={handleInputTextAdd}>Add</Button>
+            {/* <span class="iconify" data-icon="ant-design:form-outlined"></span> */}
             {/* <input class = "inputText"
                 type = "text"
                 placeholder = "Put your todo here"
