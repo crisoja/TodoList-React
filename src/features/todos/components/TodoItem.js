@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import "../styles/TodoItem.css"
 import {updateTodo, deleteTodo} from '../apis/todos';
 import {FormOutlined} from '@ant-design/icons';
-import {Modal} from 'antd';
+import {Modal, Input} from 'antd';
 
 function TodoItem(props) {
     const todo = useSelector((state) => selectTodoById(state, props.itemId))
@@ -33,15 +33,10 @@ function TodoItem(props) {
     }
 
     const showModal = (event) => {
-        if(todo.done){
-            alert("You can't update done To do!")
-            event.stopPropagation();
-        }
-        else{
         setIsModalVisible(true);
         event.stopPropagation();
         }
-    }
+    
 
     const handleOk = (event) => {
         if (todoText === ""){
@@ -68,17 +63,17 @@ function TodoItem(props) {
         {todo.text}  <span className = "todoRemove"
          onClick = {handleTodoRemove}>X</span>
           <Modal title="Update your todo" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                <input
+                <Input
+                    type = "text"
                     style = {{width: 450}}
                     placeholder = {todo.text}
                     value = {todoText}
                     onChange = {handleTodoChange}
                 />
             </Modal>   
-
             <FormOutlined className="FormOutline"
             onClick={showModal}
-       ></FormOutlined>
+            style= {todo.done ? {display: 'none'} : {}}/>
     </div>
 
     )
